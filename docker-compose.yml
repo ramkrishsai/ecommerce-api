@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres
+    container_name: ecommerce_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ecommerce
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis
+    container_name: ecommerce_redis
+    ports:
+      - "6379:6379"
+
+  app:
+    build: .
+    container_name: ecommerce_app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/ecommerce
+      - SECRET_KEY=supersecret
