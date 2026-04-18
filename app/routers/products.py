@@ -6,6 +6,8 @@ from app.schemas.product import ProductCreate
 from app.services.redis_cache import get_cache, set_cache
 from app.core.deps import require_admin
 from app.models.user import User
+from typing import List
+from app.schemas.product import ProductOut
 import json
 
 router = APIRouter()
@@ -23,7 +25,7 @@ def create_product(
     return {"msg": "product added"}
 
 
-@router.get("/products", response_model=list)
+@router.get("/products", response_model=List[ProductOut])
 def get_products(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     key = f"products:{skip}:{limit}"
 
