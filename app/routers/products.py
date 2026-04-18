@@ -23,7 +23,7 @@ def create_product(
     return {"msg": "product added"}
 
 
-@router.get("/products")
+@router.get("/products", response_model=list)
 def get_products(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     key = f"products:{skip}:{limit}"
 
