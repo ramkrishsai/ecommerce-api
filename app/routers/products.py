@@ -34,7 +34,9 @@ def get_products(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
         return json.loads(cached)
 
     products = db.query(Product).offset(skip).limit(limit).all()
-    data = [{"id": p.id, "name": p.name, "price": p.price} for p in products]
 
-    set_cache(key, json.dumps(data))
-    return data
+    set_cache(key, json.dumps([
+        {"id": p.id, "name": p.name, "price": p.price} for p in products
+    ]))
+
+    return products
