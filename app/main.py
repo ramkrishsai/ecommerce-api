@@ -9,7 +9,7 @@ from app.routers import auth, products, orders, cart as cart_router
 
 app = FastAPI()
 
-wait_for_db()
+#wait_for_db()
 
 user.Base.metadata.create_all(bind=engine)
 product.Base.metadata.create_all(bind=engine)
